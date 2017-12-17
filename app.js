@@ -18,7 +18,7 @@ var config = {
 app.use(express.query());
 
 app.use('/', wechat(config, function (req, res, next) {
-	console.log(req)
+	console.log(req.weixin)
 	res.reply({
 		content: '你好，Hello World!',
 		type: 'text'
