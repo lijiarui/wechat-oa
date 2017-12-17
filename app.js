@@ -1,47 +1,39 @@
-// 引用 express 来支持 HTTP Server 的实现
-const express = require('express');
+const express = require('express')
+const wechat = require('wechat')
+const app = express()
+const config = {
+	token: 'wechat', 
+	appid: 'wx4369a7d8a2331169', 
+	encodingAESKey: 'H1RdC0azpPwWEohbocVF9MJAkqXIOnDgG0RGD02seAU', 
+	checkSignature: true // Option
+}
 
-// 引用微信公共平台自动回复消息接口服务中间件
-var wechat = require('wechat');
-
-// 创建一个 express 实例
-const app = express();
-
-// 配置微信公众平台参数，在教程第二步中获取
-var config = {
-	token: 'wechat', // 填第二步中获取的 `token`
-	appid: 'wx4369a7d8a2331169', // 填第二步中获取的 `appid`
-	encodingAESKey: 'H1RdC0azpPwWEohbocVF9MJAkqXIOnDgG0RGD02seAU', // 填第二步中获取的 `encodingAESKey`
-	checkSignature: true // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false 
-};
-
-app.use(express.query());
-
+app.use(express.query())
 app.use('/', wechat(config, function (req, res, next) {
 	console.log(req.weixin)
-	res.reply({
-		content: '你好，Hello World!',
-		type: 'text'
-	})
 
-	res.reply({
-		content: {
-			mediaId: '9seTBfhw1KmTiaORRo4dPXwULfy4DQnyjcnPPJjjT9gwoqU2WXRTEqfwxV2pRQbZ'
-		},
-		type: 'voice'
-	})
+	if (req.weixin.Content === 'text') {
+		res.reply({
+			content: '你好，Hello World!',
+			type: 'text'
+		})
+	}
 
-	res.reply({
-		content: {
-			mediaId: '6500557999381932938'
-		},
-		type: 'image'
-	})
+	if (req.weixin.Content === 'voice') {
+		res.reply({
+			content: { mediaId: '9seTBfhw1KmTiaORRo4dPXwULfy4DQnyjcnPPJjjT9gwoqU2WXRTEqfwxV2pRQbZ' },
+			type: 'voice'
+		})
+	}
+	
+	if (req.weixin.Content === 'image') {
+		res.reply({
+			content: { mediaId: '6500557999381932938' },
+			type: 'image'
+		})
+	}
 }))
 
-// 监听端口，等待连接
-const port = 80;
-app.listen(port);
-
-// 输出服务器启动日志
-console.log(`Server listening at http://127.0.0.1:${port}`);
+const port = 80
+app.listen(port)
+console.log(`Server listening at http://127.0.0.1:${port}`)
