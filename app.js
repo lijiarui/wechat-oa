@@ -9,23 +9,24 @@ const app = express();
 
 // 配置微信公众平台参数，在教程第二步中获取
 var config = {
-    token: 'Zv9s7iC7gC9C7A69C9hHVSA5R77RvScW', // 填第二步中获取的 `token`
-    appid: 'wx75015096ce807009', // 填第二步中获取的 `appid`
-    encodingAESKey: 'yQEEB694PzeRBZ6E1WR1bQ4WeUMP1POpr4wNzBEWbB9', // 填第二步中获取的 `encodingAESKey`
-    checkSignature: true // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false 
+	token: 'wechat', // 填第二步中获取的 `token`
+	appid: 'wx4369a7d8a2331169', // 填第二步中获取的 `appid`
+	encodingAESKey: 'H1RdC0azpPwWEohbocVF9MJAkqXIOnDgG0RGD02seAU', // 填第二步中获取的 `encodingAESKey`
+	checkSignature: true // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false 
 };
 
 app.use(express.query());
 
 app.use('/', wechat(config, function (req, res, next) {
-    res.reply({
-        content: '你好，Hello World!',
-        type: 'text'
-    });
+	console.log(req)
+	res.reply({
+		content: '你好，Hello World!',
+		type: 'text'
+	});
 }));
 
 // 监听端口，等待连接
-const port = 5050;
+const port = 80;
 app.listen(port);
 
 // 输出服务器启动日志
