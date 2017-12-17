@@ -25,10 +25,10 @@ app.use('/', wechat(config, function (req, res, next) {
 			type: 'voice'
 		})
 	}
-	
+
 	if (req.weixin.Content === 'image') {
 		res.reply({
-			content: { mediaId: '6500557999381932938' },
+			content: { mediaId: '73YlTk1qniHG_EzB4PzxKG8_bYbJy_AW01gr0R8yR-aat7N_BcaFY9Ei_GaXyZl7' },
 			type: 'image'
 		})
 	}
