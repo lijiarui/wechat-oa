@@ -22,8 +22,22 @@ app.use('/', wechat(config, function (req, res, next) {
 	res.reply({
 		content: '你好，Hello World!',
 		type: 'text'
-	});
-}));
+	})
+
+	res.reply({
+		content: {
+			mediaId: '9seTBfhw1KmTiaORRo4dPXwULfy4DQnyjcnPPJjjT9gwoqU2WXRTEqfwxV2pRQbZ'
+		},
+		type: 'voice'
+	})
+
+	res.reply({
+		content: {
+			mediaId: '6500557999381932938'
+		},
+		type: 'image'
+	})
+}))
 
 // 监听端口，等待连接
 const port = 80;
